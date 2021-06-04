@@ -1,0 +1,11 @@
+matplotlib==3.4.1
+mujoco-py==2.0.2.13
+numpy==1.20.2
+tabulate==0.8.9
+tensorboard==2.5.0
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.0
+torch==1.8.1
+torchaudio==0.8.0a0+e4e171a
+torchvision==0.9.1
+tqdm==4.60.0
