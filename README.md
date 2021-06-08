@@ -1,6 +1,8 @@
 # Source Code for Model-based Imitation Learning from Offline data (MILO)
 Implementation of MILO, a model-based, offline imitation learning algorithm. 
 
+![figure](https://github.com/jdchang1/milo/blob/main/humanoid_fig.png)
+
 Link to pdf: https://arxiv.org/abs/2106.03207
 
 ## Notes on Installation
