@@ -7,5 +7,9 @@ Link to pdf: https://arxiv.org/abs/2106.03207
 ## Notes on Installation
 ---
 After cloning this repository and installing the requirements, please run
+
 `cd milo && pip install -e .`
+
 `cd mjrl && pip install -e .`
+
+The experiments are run using MuJoCo physics, which requires a license to install. Please follow the instructions on [MuJoCo Website](http://www.mujoco.org)
