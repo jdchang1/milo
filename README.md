@@ -35,3 +35,15 @@ In the `data` directory, place the expert and offline datasets in the `data/expe
 ## Running an Experiment
 We provide an example run script for Hopper, `example_run.sh`, that can be modified to be used with any other registered environment. To view all the possible arguments you can run please see the argparse in `milo/milo/utils/arguments.py`.
 
+## Bibliography
+To cite this work, please use the following citation. Note that this repository builds upon MJRL so please also cite any references noted in the README [here](https://github.com/aravindr93/mjrl).
+```
+@misc{chang2021mitigating,
+      title={Mitigating Covariate Shift in Imitation Learning via Offline Data Without Great Coverage}, 
+      author={Jonathan D. Chang and Masatoshi Uehara and Dhruv Sreenivas and Rahul Kidambi and Wen Sun},
+      year={2021},
+      eprint={2106.03207},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+```
