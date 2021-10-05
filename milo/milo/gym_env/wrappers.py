@@ -71,7 +71,7 @@ class MujocoModelWrapper(gym.Wrapper):
             self.ob = self.env.reset_model()
         else:
             idx = np.random.randint(0, self.init_state_buffer.shape[0])
-            self.ob = self.init_state_buffer[idx] if self.reset_counter % 5 == 0 else self.env.reset_model()
+            self.ob = copy.deepcopy(self.init_state_buffer[idx]) if self.reset_counter % 5 == 0 else self.env.reset_model()
 
         # Choose model round-robin style
         self.reset_counter += 1
