@@ -7,11 +7,15 @@ from mjrl.samplers.core import sample_paths
 # === Evaluation Utils ===
 # ========================
 
-def evaluate(n_iter, logger, writer, args, env, policy, reward_func, num_traj=10):
+def evaluate(n_iter, logger, writer, args, env, policy, reward_func, num_traj=10, adroit=False):
     greedy_samples = sample_paths(num_traj=num_traj, env=env, policy=policy, \
                         num_cpu=args.num_cpu, base_seed=args.seed, eval_mode=True, suppress_print=True)
     samples = sample_paths(num_traj=num_traj, env=env, policy=policy, \
                         num_cpu=args.num_cpu, base_seed=args.seed, eval_mode=False, suppress_print=True)
+
+    if adroit:
+        greedy_success = env.evaluate_success(greedy_samples)
+        sample_success = env.evaluate_success(samples)
 
     # Compute scores
     greedy_scores = np.array([np.sum(traj['rewards']) for traj in greedy_samples])
@@ -37,9 +41,13 @@ def evaluate(n_iter, logger, writer, args, env, policy, reward_func, num_traj=10
     logger.info(f'Greedy Evaluation Score mean (min, max): {greedy_mean:.2f} ({greedy_min:.2f}, {greedy_max:.2f})')
     logger.info(f'Greedy Evaluation Trajectory Lengths: {greedy_mean_lengths:.2f}')
     logger.info(f'Greedy MMD: {greedy_mmd}')
+    if adroit:
+        logger.info(f'Greedy Success %: {greedy_success}%')
     logger.info(f'Sampled Evaluation Score mean (min, max): {sample_mean:.2f} ({sample_min:.2f}, {sample_max:.2f})')
     logger.info(f'Sampled Evaluation Trajectory Lengths: {sample_mean_lengths:.2f}')
     logger.info(f'Sampled MMD: {sample_mmd}')
+    if adroit:
+        logger.info(f'Sampled Success %: {sample_success}%')
 
     # Tensorboard Logging
     writer.add_scalars('data/inf_greedy_reward', {'min_score': greedy_min,
@@ -52,6 +60,9 @@ def evaluate(n_iter, logger, writer, args, env, policy, reward_func, num_traj=10
                                               'max_score': sample_max}, n_iter+1)
     writer.add_scalar('data/inf_sampled_len', sample_mean_lengths, n_iter+1)
     writer.add_scalar('data/sampled_mmd', sample_mmd, n_iter+1)
+    if adroit:
+        writer.add_scalar('data/greedy_success_percen', greedy_success, n_iter+1)
+        writer.add_scalar('data/sampled_success_percen', sample_success, n_iter+1)
 
     scores = {'greedy': greedy_mean, 'sample': sample_mean}
     mmds = {'greedy': greedy_mmd, 'sample': sample_mmd}
